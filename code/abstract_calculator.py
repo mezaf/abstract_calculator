@@ -1,13 +1,8 @@
 import numpy as np
-import pandas as pd    
-
-class ClassName(object):
-    def __init__(self, *args):
-        super(ClassName, self).__init__(*args))
-        
+import pandas as pd            
 
 class abstract_calculator(object):
-    def __init__(self, iterable=(), *kwargs):
+    def __init__(self, iterable=(), **kwargs):
         # In case we have arguments that are not expected by the function
         # we can instantiate the class using **kwargs to provide values
         # that will be alocated in self.
@@ -54,6 +49,7 @@ class abstract_calculator(object):
             pd.Dataframe: Returns a fresh new data frame to be used with vertical calculations applied
         """    
         new_df = df.groupby(column_list).agg(calculation_args)
+        new_df.columns = new_df.columns.map('|'.join).str.strip('|')
         return new_df
     
     def weight_distribution(self,df:pd.DataFrame,column_name:str,result_column_name:str):
