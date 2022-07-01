@@ -1,10 +1,15 @@
 import numpy as np
 import pandas as pd    
 
+class ClassName(object):
+    def __init__(self, *args):
+        super(ClassName, self).__init__(*args))
+        
+
 class abstract_calculator(object):
-    def __init__(self, iterable=(), **kwargs):
+    def __init__(self, iterable=(), *kwargs):
         # In case we have arguments that are not expected by the function
-        # we cann instantiate the class using **kwargs to provide values
+        # we can instantiate the class using **kwargs to provide values
         # that will be alocated in self.
         # i.e. by providing {"Key1":"val1","key2":"val2"}
         # you will be able to use  self.key1, self.key2 as an argument
@@ -22,7 +27,7 @@ class abstract_calculator(object):
             column_name (str):  Name of the column where results will be written to
 
         Returns:
-            df: New pd.Dataframe to work on
+            df: New pd.Dataframe to work on with horizontal calculation applied
         """
 
         # Build function
@@ -46,8 +51,8 @@ class abstract_calculator(object):
                                             i.e. {"columnA":"sum,"columnB":["min","max"]}
 
         Returns:
-            pd.Dataframe: Returns a fresh new data frame to be used 
-        """     
+            pd.Dataframe: Returns a fresh new data frame to be used with vertical calculations applied
+        """    
         new_df = df.groupby(column_list).agg(calculation_args)
         return new_df
     
